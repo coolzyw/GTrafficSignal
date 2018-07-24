@@ -94,6 +94,7 @@ function get(options) {
 
 
 // pop up a login panel for not logged in user to log in
+// LOGIN entrance
 var token = getAuthTokenInteractive();
 
 
