@@ -8,7 +8,7 @@ window.onload = function () {
 
     document.getElementById('signout_button').addEventListener('click', function () {
         console.log("click sign out button");
-        var url = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://www.example.com";
+        var url = "https://www.google.com/accounts/Logout";
         chrome.tabs.create({ url: url });  
         // chrome.identity.getAuthToken({ interactive: true }, function (token) {
         //     chrome.identity.removeCachedAuthToken({ token: token, signOut: true },
