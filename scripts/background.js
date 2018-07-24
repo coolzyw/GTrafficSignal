@@ -165,10 +165,10 @@ chrome.storage.local.get(['log'], function(result) {
     condition = navigator.onLine ? "online" : "offline";
     client.get('http://www.google.com', function(response) {
       if (response === 200) {
-        getAuthToken({
-          'interactive': false,
-          'callback': getAuthTokenInteractiveCallback,
-      });
+      //   getAuthToken({
+      //     'interactive': false,
+      //     'callback': getAuthTokenInteractiveCallback,
+      // });
         console.log("internet success");
         flag = true;
       } else {
