@@ -49,8 +49,8 @@ function getAuthTokenInteractiveCallback(token) {
 */
 function google_drive_api(token) {
   get({
-      //'url': 'https://www.googleapis.com/drive/v3/files?key={YOUR_API_KEY}',
-      'url': 'https://www.googleapis.com/drive/v3/',
+      'url': 'https://www.googleapis.com/drive/v3/files?key={YOUR_API_KEY}',
+      //'url': 'https://www.googleapis.com/drive/v3/',
       'callback': google_drive_api_callback,
       'token': token,
   });
@@ -193,7 +193,7 @@ chrome.storage.local.get(['log'], function(result) {
     if (flag === false) {
       trueCondition = "yellow";
       if (trueCondition !== prev_condition) {
-        var message = "Offline at:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+        var message = "Internet offline at:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
         message += timeStamp();
         console.log(message);
         addToLog(message);
@@ -203,7 +203,7 @@ chrome.storage.local.get(['log'], function(result) {
       if (GFLAG === true) {
         trueCondition = "green";
         if (trueCondition !== prev_condition) {
-          var message = "Online at: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+          var message = "Google drive up at: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
           message += timeStamp();
           console.log(message);
           addToLog(message);
@@ -212,7 +212,7 @@ chrome.storage.local.get(['log'], function(result) {
       } else {
         trueCondition = "red";
         if (trueCondition !== prev_condition) {
-          var message = "Local connection at:&nbsp;&nbsp;&nbsp;";
+          var message = "Google drive down at:&nbsp;&nbsp;&nbsp;";
           message += timeStamp();
           console.log(message);
           addToLog(message);
