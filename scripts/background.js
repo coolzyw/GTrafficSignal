@@ -1,5 +1,5 @@
 var signed_in = false;
-
+var GFLAG = true;
 
 /**
 * Get users access_token.
@@ -49,8 +49,8 @@ function getAuthTokenInteractiveCallback(token) {
 */
 function google_drive_api(token) {
   get({
-      'url': 'https://www.googleapis.com/drive/v3/files?key={YOUR_API_KEY}',
-      //'url': 'https://www.googleapis.com/drive/v3/',
+      //'url': 'https://www.googleapis.com/drive/v3/files?key={YOUR_API_KEY}',
+      'url': 'https://www.googleapis.com/drive/v3/',
       'callback': google_drive_api_callback,
       'token': token,
   });
@@ -83,9 +83,10 @@ function get(options) {
           // JSON response assumed. Other APIs may have different responses.
           options.callback(JSON.parse(xhr.responseText));
           // green
+          GFLAG = true;
       } else {
           if (xhr.status!=200 && xhr.status!=0){
-              trueCondition = "red";
+              GFLAG = false;
               console.log('get', xhr.readyState, xhr.status, xhr.responseText);
               console.log("there is a error");
           }
@@ -189,7 +190,7 @@ chrome.storage.local.get(['log'], function(result) {
         flag = false;
       }
     });
-    if (condition === "offline") {
+    if (flag === false) {
       trueCondition = "yellow";
       if (trueCondition !== prev_condition) {
         var message = "Offline at:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
@@ -199,7 +200,7 @@ chrome.storage.local.get(['log'], function(result) {
       }
       prev_condition = trueCondition;
     } else {
-      if (flag === true) {
+      if (GFLAG === true) {
         trueCondition = "green";
         if (trueCondition !== prev_condition) {
           var message = "Online at: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
