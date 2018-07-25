@@ -1,6 +1,5 @@
 // pop up a login panel for not logged in user to log in
 // LOGIN entrance
-
 window.onload = function(){
 	chrome.storage.local.get(['log'], function(result) {
 		console.log(result['log']);

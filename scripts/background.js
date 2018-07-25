@@ -1,3 +1,6 @@
+var signed_in = false;
+
+
 /**
 * Get users access_token.
 *
@@ -27,8 +30,10 @@ function getAuthTokenInteractive() {
 * @param {string} token - Current users access_token.
 */
 function getAuthTokenInteractiveCallback(token) {
+  if (!token) signed_in = false;
+  else signed_in = true;
   if (chrome.runtime.lastError) {
-      showAuthNotification();
+      console.log("not logged in");
   } else {
       google_drive_api(token);
   }
@@ -95,8 +100,17 @@ function get(options) {
 
 // pop up a login panel for not logged in user to log in
 // LOGIN entrance
-var token = getAuthTokenInteractive();
-
+getAuthTokenInteractive();
+chrome.identity.getAuthToken({interactive: false}, function (token) {
+  if (!token) {
+      if (chrome.runtime.lastError.message.match(/not signed in/)) {
+          signed_in = false;
+      } else {
+          signed_in = true;
+      }
+  }
+});
+console.log("sign in ", signed_in);
 
 
 
@@ -165,18 +179,18 @@ chrome.storage.local.get(['log'], function(result) {
     condition = navigator.onLine ? "online" : "offline";
     client.get('http://www.google.com', function(response) {
       if (response === 200) {
-      //   getAuthToken({
-      //     'interactive': false,
-      //     'callback': getAuthTokenInteractiveCallback,
-      // });
-        console.log("internet success");
+        console.log("internet success");  
+        console.log("sign in ", signed_in);
+        if (signed_in ===true){
+          getAuthTokenInteractive();
+        }
         flag = true;
       } else {
         flag = false;
       }
     });
     if (condition === "offline") {
-      trueCondition = "red";
+      trueCondition = "yellow";
       if (trueCondition !== prev_condition) {
         var message = "Offline at:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
         message += timeStamp();
@@ -195,7 +209,7 @@ chrome.storage.local.get(['log'], function(result) {
         }
         prev_condition = trueCondition;
       } else {
-        trueCondition = "yellow";
+        trueCondition = "red";
         if (trueCondition !== prev_condition) {
           var message = "Local connection at:&nbsp;&nbsp;&nbsp;";
           message += timeStamp();
