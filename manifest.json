@@ -1,38 +1,37 @@
 {
     "manifest_version": 2,
  
-    "name": "Internet Traffic Signal",
-    "description": "Useful in K-12, this extension shows green if the device is Internet-connected; red, if not; yellow for only a local connection.",
-    "version": "3.0",
+    "name": "Google Drive Traffic Signal",
+    "description": "Useful in K-12, this extension shows green if the Google Drive is up; red, if down; yellow for no internet connection.",
+    "version": "5.0",
  
     "background": {
-       "scripts": [ "scripts/background.js" ]
+        "scripts": [ "scripts/background.js" ]
     },
  
     "browser_action": {
-       "default_icon": "img/green.png",
-       "default_title": "Internet Traffic Signal",
-       "default_popup": "popup.html"
+        "default_icon": "img/green.png",
+        "default_title": "Google Drive Traffic Signal",
+        "default_popup": "popup.html"
     },
  
     "permissions": [
-     "storage",
-     "http://www.google.com/",
-     "https://www.google.com/",
-     "background",
+        "storage",
+        "http://www.google.com/",
+        "https://www.google.com/",
+        "background",
         "identity",
         "notifications",
         "alarms",
         "https://www.googleapis.com/*",
         "https://*.googleusercontent.com/*"
-     ],
+    ],
 
-     "oauth2": {
+    "oauth2": {
         "client_id": "630133507196-hpsuf0vv7rlg4l9r708shkn61rubkqes.apps.googleusercontent.com",
         "scopes": [
             "https://www.googleapis.com/auth/drive.metadata.readonly"
         ]
-    },
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnqFjzbt+LtejD1JhOyMUbejOHdLoemzryr+ZQHK2CEKuI0yVVYToFs7eNusH/hfxhnyF27G4BU8apsTc695EpVQGD0ANKdt6BjubRnA/4VcdkmfdD3D9nsdCc+fHkINRU5e05grfs/BETWW/JAUULduaNWGfhT7nLRqL6uc/mo45REM1PGuKnSB/f3LX97K0vX/7loX21ih8Ep7aQpcWIPfCwVsb80E4am4CJ6SlBtGD2wxdEW7VInXWMAHMJ1khsi6hJwGx9ZjbnC7UVxjhDWtERK28ylKr8mmuwYUPOhCHfy/uSW/0T9VhiKUQvUokpe1WveeON3kI5nGcM+nVKwIDAQAB"
+    }
  }
 
