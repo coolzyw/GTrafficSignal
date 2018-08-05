@@ -1,49 +1,113 @@
 <!doctype html>
 <html>
   <head>
-
+      <style>
+          /* Popup container - can be anything you want */
+          .popup {
+              position: relative;
+              display: inline-block;
+              cursor: pointer;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+          }
+          
+          /* The actual popup */
+          .popup .popuptext {
+              visibility: hidden;
+              width: 160px;
+              background-color: #555;
+              color: #fff;
+              text-align: center;
+              border-radius: 6px;
+              padding: 8px 0;
+              position: absolute;
+              z-index: 1;
+              bottom: 125%;
+              left: 50%;
+              margin-left: -20px;
+          }
+          
+          /* Popup arrow */
+          .popup .popuptext::after {
+              content: "";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              margin-left: -5px;
+              border-width: 5px;
+              border-style: solid;
+              border-color: #555 transparent transparent transparent;
+          }
+          
+          /* Toggle this class - hide and show the popup */
+          .popup .show {
+              visibility: visible;
+              -webkit-animation: fadeIn 0.5s;
+              animation: fadeIn 0.5s;
+          }
+          
+          /* Add animation (fade in the popup) */
+          @-webkit-keyframes fadeIn {
+              from {opacity: 0;} 
+              to {opacity: 1;}
+          }
+          
+          @keyframes fadeIn {
+              from {opacity: 0;}
+              to {opacity:1 ;}
+          }
+          </style>
   </head>
-  <body>
-    <p style="width:270px">
-      Google Drive Traffic Signal
-    </p>
 
-    <p style="width:270px"><img src="img/green.png" alt="Green light:" style="width:16px;height:16px;">
-      Google drive is up
-    </p>
+<body>
+  <p style="width:270px">
+    Google Drive Traffic Signal (Version 6.0) 08/03/2018
+  </p>
 
-    <p style="width:270px"><img src="img/yellow.png" alt="Yellow light:" style="width:16px;height:16px;">
-      Poor internet connection
-    </p>
+  <p style="width:270px;height:8px">
+    <img src="img/red.png" alt="Red light:" style="width:16px;height:16px;"> Google drive is down
+  </p>
 
-    <p style="width:270px"><img src="img/red.png" alt="Red light:" style="width:16px;height:16px;">
-      Google drive is down
-    </p>
+  <p style="width:270px;height:8px">
+    <img src="img/yellow.png" alt="Yellow light:" style="width:16px;height:16px;"> Local internet connection
+  </p>
 
-    <div id="log">
-      <b>Log history: </b>
-    </div>
+  <p style="width:270px;height:8px">
+    <img src="img/green.png" alt="Green light:" style="width:16px;height:16px;"> Google drive is up
+  </p>
 
-    
-    <pre style="width:270px" id="content"></pre>
+  <p style="height:5px"></p>
 
-    <button style="width:270px" id="authorize_button" style="display: none;">Sign in</button>
+  <p id = "hidden_button"> </p>
+  <!-- <button style="width:270px" id="authorize_button" style="display: none;">Sign in Chrome</button> -->
 
-    <button style="width:270px" id="signout_button" style="display: none;">Sign Out</button>
+  <p></p>
 
-    <p></p>
+  <button type="button" style="width:270px" id="drive_button">Go to Google Drive</button>
 
-    <button type="button" style="width:270px" id="drive_button">Go to Google Drive</button>
+  <p></p>
 
-    <p></p>
+  <div id="log">
+    <b>Log history: </b>
+  </div>
 
-    <!-- <script type="text/javascript" src="oauth.js"></script> -->
-    <script type="text/javascript" src="popup.js"></script>
+  <!--<a href='#' onclick='downloadCSV({ filename: "export.csv" });'>Export log entries in CSV format</a>-->
 
-    
-<!--Add buttons to initiate auth sequence and sign out-->
+  <!--<pre style="width:270px" id="content"></pre>-->
 
-  </script>
-  </body>
- 
+  <!--<button style="width:270px" id="signout_button" style="display: none;">Sign Out</button>-->
+
+  <button style="width:270px" id="export_button" style="display: none;">Export Log History</button>
+
+  <p></p>
+
+  <button class="popup" id="POPUP" style="text-align:center">About
+      <span class="popuptext" id="myPopup">Developers: Yiwei Zhang, Tianji Cong, Renying Chen, Jiru Wang, IMLC, CSE Dept., U of Michigan</span>
+  </button>
+
+  <script type="text/javascript" src="popup.js"></script>
+</body>
+
 </html>
