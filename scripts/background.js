@@ -31,6 +31,7 @@ function getAuthTokenInteractive() {
 * @param {string} token - Current users access_token.
 */
 function getAuthTokenInteractiveCallback(token) {
+<<<<<<< HEAD
   console.log(token);
   // if (!token) {
   //   if (chrome.runtime.lastError.message.match(/not signed in/)) {
@@ -48,6 +49,14 @@ function getAuthTokenInteractiveCallback(token) {
   else {
     google_drive_api(token);
     signed_in = true;
+=======
+  if (!token) signed_in = false;
+  else signed_in = true;
+  if (chrome.runtime.lastError) {
+    console.log("not logged in");
+  } else {
+    google_drive_api(token);
+>>>>>>> aa18d9527b10b18dbce5870a60fd22b33fb93da0
   }
 }
 
