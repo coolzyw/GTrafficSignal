@@ -32,20 +32,11 @@ function getAuthTokenInteractive() {
 */
 function getAuthTokenInteractiveCallback(token) {
   console.log(token);
-  // if (!token) {
-  //   if (chrome.runtime.lastError.message.match(/not signed in/)) {
-  //     console.log("logged out");
-  //     signed_in = false;
-  //   } else {
-  //     signed_in = true;
-  //     google_drive_api(token);
-  //   }
-  // }
   if (!token) {
     console.log("logged out");
     signed_in = false;
   }
-  else {
+  else{
     google_drive_api(token);
     signed_in = true;
   }
@@ -115,17 +106,11 @@ function get(options) {
 getAuthTokenInteractive();
 chrome.identity.getAuthToken({ interactive: false }, function (token) {
   if (!token) {
-    console.log("!token", token);
-    if (chrome.runtime.lastError) {
-    //if (chrome.runtime.lastError.message.match(/not signed in/)) {
+    if (chrome.runtime.lastError.message.match(/not signed in/)) {
       signed_in = false;
     } else {
       signed_in = true;
     }
-  }
-  else{
-    console.log("token: ",token);
-    signed_in = true;
   }
 });
 console.log("sign in ", signed_in);
@@ -211,20 +196,17 @@ chrome.storage.local.get(['log'], function (result) {
   if (typeof result.log === "undefined") {
     chrome.storage.local.set({ 'log': info });
   }
-  var timer = window.setInterval(() => {
+  window.setInterval(() => {
     condition = navigator.onLine ? "online" : "offline";
     client.get('http://www.google.com', function (response) {
       if (response === 200) {
         console.log("internet success");
         console.log("sign in ", signed_in);
         chrome.storage.local.set({ 'sign_in': signed_in });
+        if (signed_in === true) {
+          getAuthTokenInteractive();
+        }
         flag = true;
-        if (signed_in===true){
-          //getAuthTokenInteractive();
-        }
-        else{
-          console.log("logged out");
-        }
       } else {
         flag = false;
       }
@@ -237,8 +219,6 @@ chrome.storage.local.get(['log'], function (result) {
       signed_in_display = true;
     }
     else if (signed_in == false) {
-      //if(prev_condition === "green") getAuthToken(options);
-
       if (flag == true) {
         trueCondition = "grey";
         prev_condition = trueCondition;
